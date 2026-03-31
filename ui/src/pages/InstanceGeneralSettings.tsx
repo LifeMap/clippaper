@@ -1,27 +1,41 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { SlidersHorizontal } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { SUPPORTED_LANGUAGES } from "@paperclipai/shared";
 import { instanceSettingsApi } from "@/api/instanceSettings";
 import { useBreadcrumbs } from "../context/BreadcrumbContext";
 import { queryKeys } from "../lib/queryKeys";
 import { cn } from "../lib/utils";
 
+const LANGUAGE_LABELS: Record<string, string> = {
+  en: "English",
+  ko: "한국어",
+};
+
 export function InstanceGeneralSettings() {
+  const { t, i18n } = useTranslation();
   const { setBreadcrumbs } = useBreadcrumbs();
   const queryClient = useQueryClient();
   const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
     setBreadcrumbs([
-      { label: "Instance Settings" },
-      { label: "General" },
+      { label: t("settings.instanceSettings") },
+      { label: t("settings.general") },
     ]);
-  }, [setBreadcrumbs]);
+  }, [setBreadcrumbs, t]);
 
   const generalQuery = useQuery({
     queryKey: queryKeys.instance.generalSettings,
     queryFn: () => instanceSettingsApi.getGeneral(),
   });
+
+  useEffect(() => {
+    if (generalQuery.data?.defaultLanguage) {
+      i18n.changeLanguage(generalQuery.data.defaultLanguage);
+    }
+  }, [generalQuery.data?.defaultLanguage, i18n]);
 
   const toggleMutation = useMutation({
     mutationFn: async (enabled: boolean) =>
@@ -31,12 +45,25 @@ export function InstanceGeneralSettings() {
       await queryClient.invalidateQueries({ queryKey: queryKeys.instance.generalSettings });
     },
     onError: (error) => {
-      setActionError(error instanceof Error ? error.message : "Failed to update general settings.");
+      setActionError(error instanceof Error ? error.message : t("settings.failedToUpdateGeneralSettings"));
+    },
+  });
+
+  const languageMutation = useMutation({
+    mutationFn: async (lang: string) =>
+      instanceSettingsApi.updateGeneral({ defaultLanguage: lang as "en" | "ko" }),
+    onSuccess: async (_data, lang) => {
+      setActionError(null);
+      await i18n.changeLanguage(lang);
+      await queryClient.invalidateQueries({ queryKey: queryKeys.instance.generalSettings });
+    },
+    onError: (error) => {
+      setActionError(error instanceof Error ? error.message : t("settings.failedToUpdateGeneralSettings"));
     },
   });
 
   if (generalQuery.isLoading) {
-    return <div className="text-sm text-muted-foreground">Loading general settings...</div>;
+    return <div className="text-sm text-muted-foreground">{t("settings.loadingGeneralSettings")}</div>;
   }
 
   if (generalQuery.error) {
@@ -44,22 +71,23 @@ export function InstanceGeneralSettings() {
       <div className="text-sm text-destructive">
         {generalQuery.error instanceof Error
           ? generalQuery.error.message
-          : "Failed to load general settings."}
+          : t("settings.failedToLoadGeneralSettings")}
       </div>
     );
   }
 
   const censorUsernameInLogs = generalQuery.data?.censorUsernameInLogs === true;
+  const currentLanguage = generalQuery.data?.defaultLanguage ?? "en";
 
   return (
     <div className="max-w-4xl space-y-6">
       <div className="space-y-2">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="h-5 w-5 text-muted-foreground" />
-          <h1 className="text-lg font-semibold">General</h1>
+          <h1 className="text-lg font-semibold">{t("settings.general")}</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Configure instance-wide defaults that affect how operator-visible logs are displayed.
+          {t("settings.censorUsernameDescription")}
         </p>
       </div>
 
@@ -72,17 +100,38 @@ export function InstanceGeneralSettings() {
       <section className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">
-            <h2 className="text-sm font-semibold">Censor username in logs</h2>
+            <h2 className="text-sm font-semibold">{t("settings.defaultLanguage")}</h2>
             <p className="max-w-2xl text-sm text-muted-foreground">
-              Hide the username segment in home-directory paths and similar operator-visible log output. Standalone
-              username mentions outside of paths are not yet masked in the live transcript view. This is off by
-              default.
+              {t("settings.defaultLanguageDescription")}
+            </p>
+          </div>
+          <select
+            value={currentLanguage}
+            disabled={languageMutation.isPending}
+            onChange={(e) => languageMutation.mutate(e.target.value)}
+            className="rounded-md border border-border bg-background px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {SUPPORTED_LANGUAGES.map((lang) => (
+              <option key={lang} value={lang}>
+                {LANGUAGE_LABELS[lang] ?? lang}
+              </option>
+            ))}
+          </select>
+        </div>
+      </section>
+
+      <section className="rounded-xl border border-border bg-card p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-1.5">
+            <h2 className="text-sm font-semibold">{t("settings.censorUsername")}</h2>
+            <p className="max-w-2xl text-sm text-muted-foreground">
+              {t("settings.censorUsernameDescription")}
             </p>
           </div>
           <button
             type="button"
             data-slot="toggle"
-            aria-label="Toggle username log censoring"
+            aria-label={t("settings.censorUsername")}
             disabled={toggleMutation.isPending}
             className={cn(
               "relative inline-flex h-5 w-9 items-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-60",
