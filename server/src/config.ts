@@ -73,6 +73,10 @@ export interface Config {
   heartbeatSchedulerEnabled: boolean;
   heartbeatSchedulerIntervalMs: number;
   companyDeletionEnabled: boolean;
+  slackEnabled: boolean;
+  slackBotToken: string | undefined;
+  slackAppToken: string | undefined;
+  slackChannelId: string | undefined;
 }
 
 export function loadConfig(): Config {
@@ -255,5 +259,9 @@ export function loadConfig(): Config {
     heartbeatSchedulerEnabled: process.env.HEARTBEAT_SCHEDULER_ENABLED !== "false",
     heartbeatSchedulerIntervalMs: Math.max(10000, Number(process.env.HEARTBEAT_SCHEDULER_INTERVAL_MS) || 30000),
     companyDeletionEnabled,
+    slackEnabled: process.env.SLACK_ENABLED === "true",
+    slackBotToken: process.env.SLACK_BOT_TOKEN ?? undefined,
+    slackAppToken: process.env.SLACK_APP_TOKEN ?? undefined,
+    slackChannelId: process.env.SLACK_CHANNEL_ID ?? undefined,
   };
 }
