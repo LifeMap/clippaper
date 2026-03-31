@@ -326,6 +326,8 @@ export type {
 } from "./types/index.js";
 
 export {
+  SUPPORTED_LANGUAGES,
+  type SupportedLanguage,
   instanceGeneralSettingsSchema,
   patchInstanceGeneralSettingsSchema,
   type PatchInstanceGeneralSettings,

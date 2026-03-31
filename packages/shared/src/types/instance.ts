@@ -1,5 +1,6 @@
 export interface InstanceGeneralSettings {
   censorUsernameInLogs: boolean;
+  defaultLanguage: "en" | "ko";
 }
 
 export interface InstanceExperimentalSettings {

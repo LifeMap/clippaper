@@ -1,4 +1,6 @@
 export {
+  SUPPORTED_LANGUAGES,
+  type SupportedLanguage,
   instanceGeneralSettingsSchema,
   patchInstanceGeneralSettingsSchema,
   type InstanceGeneralSettings,

@@ -1,7 +1,11 @@
 import { z } from "zod";
 
+export const SUPPORTED_LANGUAGES = ["en", "ko"] as const;
+export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
+
 export const instanceGeneralSettingsSchema = z.object({
   censorUsernameInLogs: z.boolean().default(false),
+  defaultLanguage: z.enum(SUPPORTED_LANGUAGES).default("en"),
 }).strict();
 
 export const patchInstanceGeneralSettingsSchema = instanceGeneralSettingsSchema.partial();
