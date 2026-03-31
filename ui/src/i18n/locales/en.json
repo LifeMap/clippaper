@@ -49,7 +49,18 @@
     "censorUsernameDescription": "Hide the username segment in home-directory paths and similar operator-visible log output.",
     "loadingGeneralSettings": "Loading general settings...",
     "failedToLoadGeneralSettings": "Failed to load general settings.",
-    "failedToUpdateGeneralSettings": "Failed to update general settings."
+    "failedToUpdateGeneralSettings": "Failed to update general settings.",
+    "slackIntegration": "Slack Integration",
+    "slackIntegrationDescription": "Connect a Slack bot to receive inbox notifications and interact with agents.",
+    "slackEnable": "Enable Slack Bot",
+    "slackBotToken": "Bot Token (xoxb-...)",
+    "slackAppToken": "App Token (xapp-...)",
+    "slackChannelId": "Channel ID",
+    "slackSaveSuccess": "Slack settings saved.",
+    "slackSaveError": "Failed to save Slack settings.",
+    "slackTokensRequired": "Bot Token, App Token, and Channel ID are all required to enable Slack.",
+    "slackStatusConnected": "Connected",
+    "slackStatusDisconnected": "Disconnected"
   },
   "common": {
     "loading": "Loading...",
@@ -97,6 +108,9 @@
     "ceoStrategy": "CEO Strategy",
     "budgetOverride": "Budget Override",
     "human": "Human",
-    "agent": "Agent"
+    "agent": "Agent",
+    "welcomeMessage": "ClippaperAI is now connected to this channel!",
+    "welcomeConnected": "is now connected to this channel!",
+    "welcomeHelp": "Use `/clip agents` to list agents or `/clip ask` to send a message to an agent."
   }
 }
