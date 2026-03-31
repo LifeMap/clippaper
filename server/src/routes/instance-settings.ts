@@ -5,6 +5,7 @@ import { forbidden } from "../errors.js";
 import { validate } from "../middleware/validate.js";
 import { instanceSettingsService, logActivity } from "../services/index.js";
 import { getActorInfo } from "./authz.js";
+import { restartSlackBot, stopSlackBot, isSlackBotRunning } from "../slack-bot/index.js";
 
 function assertCanManageInstanceSettings(req: Request) {
   if (req.actor.type !== "board") {
@@ -51,6 +52,25 @@ export function instanceSettingsRoutes(db: Db) {
           }),
         ),
       );
+      // Dynamic Slack bot management
+      const slackChanged = ["slackEnabled", "slackBotToken", "slackAppToken", "slackChannelId"]
+        .some((k) => k in req.body);
+      if (slackChanged) {
+        const g = updated.general;
+        if (g.slackEnabled && g.slackBotToken && g.slackAppToken && g.slackChannelId) {
+          restartSlackBot(db, {
+            botToken: g.slackBotToken,
+            appToken: g.slackAppToken,
+            channelId: g.slackChannelId,
+          }).catch((err) => {
+            console.error("[slack-bot] Failed to restart Slack bot:", err);
+          });
+        } else if (isSlackBotRunning()) {
+          stopSlackBot().catch((err) => {
+            console.error("[slack-bot] Failed to stop Slack bot:", err);
+          });
+        }
+      }
       res.json(updated.general);
     },
   );
