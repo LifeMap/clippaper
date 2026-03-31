@@ -4,6 +4,7 @@ import { AlertTriangle, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBreadcrumbs } from "../context/BreadcrumbContext";
 import { useCompany } from "../context/CompanyContext";
+import { useTranslation } from "react-i18next";
 
 type NotFoundScope = "board" | "invalid_company_prefix" | "global";
 
@@ -16,21 +17,22 @@ export function NotFoundPage({ scope = "global", requestedPrefix }: NotFoundPage
   const location = useLocation();
   const { setBreadcrumbs } = useBreadcrumbs();
   const { companies, selectedCompany } = useCompany();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    setBreadcrumbs([{ label: "Not Found" }]);
-  }, [setBreadcrumbs]);
+    setBreadcrumbs([{ label: t("notFound.title") }]);
+  }, [setBreadcrumbs, t]);
 
   const fallbackCompany = selectedCompany ?? companies[0] ?? null;
   const dashboardHref = fallbackCompany ? `/${fallbackCompany.issuePrefix}/dashboard` : "/";
   const currentPath = `${location.pathname}${location.search}${location.hash}`;
   const normalizedPrefix = requestedPrefix?.toUpperCase();
 
-  const title = scope === "invalid_company_prefix" ? "Company not found" : "Page not found";
+  const title = scope === "invalid_company_prefix" ? "Company not found" : t("notFound.title");
   const description =
     scope === "invalid_company_prefix"
       ? `No company matches prefix "${normalizedPrefix ?? "unknown"}".`
-      : "This route does not exist.";
+      : t("notFound.description");
 
   return (
     <div className="mx-auto max-w-2xl py-10">
@@ -53,11 +55,11 @@ export function NotFoundPage({ scope = "global", requestedPrefix }: NotFoundPage
           <Button asChild>
             <Link to={dashboardHref}>
               <Compass className="mr-1.5 h-4 w-4" />
-              Open dashboard
+              {t("nav.dashboard")}
             </Link>
           </Button>
           <Button variant="outline" asChild>
-            <Link to="/">Go home</Link>
+            <Link to="/">{t("mobileNav.home")}</Link>
           </Button>
         </div>
       </div>

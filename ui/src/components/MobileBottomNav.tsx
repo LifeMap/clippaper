@@ -11,6 +11,7 @@ import { useCompany } from "../context/CompanyContext";
 import { useDialog } from "../context/DialogContext";
 import { cn } from "../lib/utils";
 import { useInboxBadge } from "../hooks/useInboxBadge";
+import { useTranslation } from "react-i18next";
 
 interface MobileBottomNavProps {
   visible: boolean;
@@ -38,22 +39,23 @@ export function MobileBottomNav({ visible }: MobileBottomNavProps) {
   const { selectedCompanyId } = useCompany();
   const { openNewIssue } = useDialog();
   const inboxBadge = useInboxBadge(selectedCompanyId);
+  const { t } = useTranslation();
 
   const items = useMemo<MobileNavItem[]>(
     () => [
-      { type: "link", to: "/dashboard", label: "Home", icon: House },
-      { type: "link", to: "/issues", label: "Issues", icon: CircleDot },
-      { type: "action", label: "Create", icon: SquarePen, onClick: () => openNewIssue() },
-      { type: "link", to: "/agents/all", label: "Agents", icon: Users },
+      { type: "link", to: "/dashboard", label: t("mobileNav.home"), icon: House },
+      { type: "link", to: "/issues", label: t("nav.issues"), icon: CircleDot },
+      { type: "action", label: t("mobileNav.create"), icon: SquarePen, onClick: () => openNewIssue() },
+      { type: "link", to: "/agents/all", label: t("mobileNav.agents"), icon: Users },
       {
         type: "link",
         to: "/inbox",
-        label: "Inbox",
+        label: t("nav.inbox"),
         icon: Inbox,
         badge: inboxBadge.inbox,
       },
     ],
-    [openNewIssue, inboxBadge.inbox],
+    [openNewIssue, inboxBadge.inbox, t],
   );
 
   return (
