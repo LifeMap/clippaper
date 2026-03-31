@@ -18,10 +18,12 @@ function normalizeGeneralSettings(raw: unknown): InstanceGeneralSettings {
   if (parsed.success) {
     return {
       censorUsernameInLogs: parsed.data.censorUsernameInLogs ?? false,
+      defaultLanguage: parsed.data.defaultLanguage ?? "en",
     };
   }
   return {
     censorUsernameInLogs: false,
+    defaultLanguage: "en",
   };
 }
 
