@@ -1,0 +1,59 @@
+{
+  "nav": {
+    "dashboard": "대시보드",
+    "inbox": "받은함",
+    "issues": "이슈",
+    "routines": "루틴",
+    "goals": "목표",
+    "org": "조직도",
+    "skills": "스킬",
+    "costs": "비용",
+    "activity": "활동",
+    "settings": "설정",
+    "newIssue": "새 이슈",
+    "work": "업무",
+    "company": "회사"
+  },
+  "actions": {
+    "create": "생성",
+    "cancel": "취소",
+    "save": "저장",
+    "edit": "편집",
+    "delete": "삭제"
+  },
+  "commandPalette": {
+    "actions": "작업",
+    "pages": "페이지",
+    "agents": "에이전트",
+    "projects": "프로젝트",
+    "createNewIssue": "새 이슈 생성",
+    "createNewAgent": "새 에이전트 생성",
+    "createNewProject": "새 프로젝트 생성",
+    "noResults": "검색 결과가 없습니다."
+  },
+  "mobileNav": {
+    "home": "홈",
+    "create": "생성",
+    "agents": "에이전트"
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "description": "존재하지 않는 경로입니다."
+  },
+  "settings": {
+    "instanceSettings": "인스턴스 설정",
+    "general": "일반",
+    "defaultLanguage": "기본 언어",
+    "defaultLanguageDescription": "이 인스턴스의 기본 표시 언어를 설정합니다.",
+    "censorUsername": "로그에서 사용자명 가리기",
+    "censorUsernameDescription": "홈 디렉토리 경로 및 운영자에게 보이는 로그 출력에서 사용자명을 숨깁니다.",
+    "loadingGeneralSettings": "일반 설정을 불러오는 중...",
+    "failedToLoadGeneralSettings": "일반 설정을 불러오지 못했습니다.",
+    "failedToUpdateGeneralSettings": "일반 설정을 업데이트하지 못했습니다."
+  },
+  "common": {
+    "loading": "불러오는 중...",
+    "error": "오류가 발생했습니다.",
+    "beta": "베타"
+  }
+}

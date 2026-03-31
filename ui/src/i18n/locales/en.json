@@ -1,0 +1,59 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "inbox": "Inbox",
+    "issues": "Issues",
+    "routines": "Routines",
+    "goals": "Goals",
+    "org": "Org",
+    "skills": "Skills",
+    "costs": "Costs",
+    "activity": "Activity",
+    "settings": "Settings",
+    "newIssue": "New Issue",
+    "work": "Work",
+    "company": "Company"
+  },
+  "actions": {
+    "create": "Create",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "commandPalette": {
+    "actions": "Actions",
+    "pages": "Pages",
+    "agents": "Agents",
+    "projects": "Projects",
+    "createNewIssue": "Create new issue",
+    "createNewAgent": "Create new agent",
+    "createNewProject": "Create new project",
+    "noResults": "No results found."
+  },
+  "mobileNav": {
+    "home": "Home",
+    "create": "Create",
+    "agents": "Agents"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "This route does not exist."
+  },
+  "settings": {
+    "instanceSettings": "Instance Settings",
+    "general": "General",
+    "defaultLanguage": "Default language",
+    "defaultLanguageDescription": "Set the default display language for this instance.",
+    "censorUsername": "Censor username in logs",
+    "censorUsernameDescription": "Hide the username segment in home-directory paths and similar operator-visible log output.",
+    "loadingGeneralSettings": "Loading general settings...",
+    "failedToLoadGeneralSettings": "Failed to load general settings.",
+    "failedToUpdateGeneralSettings": "Failed to update general settings."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred.",
+    "beta": "Beta"
+  }
+}
