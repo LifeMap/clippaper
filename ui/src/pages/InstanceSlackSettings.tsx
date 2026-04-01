@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { MessageSquare } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import { SlackIcon } from "@/components/icons/SlackIcon";
 import { useTranslation } from "react-i18next";
 import { instanceSettingsApi } from "@/api/instanceSettings";
 import { useBreadcrumbs } from "../context/BreadcrumbContext";
@@ -19,6 +20,7 @@ export function InstanceSlackSettings() {
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
   const [dirty, setDirty] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
 
   useEffect(() => {
     setBreadcrumbs([
@@ -87,7 +89,7 @@ export function InstanceSlackSettings() {
     <div className="max-w-4xl space-y-6">
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <MessageSquare className="h-5 w-5 text-muted-foreground" />
+          <SlackIcon className="h-5 w-5 text-muted-foreground" />
           <h1 className="text-lg font-semibold">{t("settings.slackIntegration")}</h1>
         </div>
         <p className="text-sm text-muted-foreground">
@@ -106,6 +108,58 @@ export function InstanceSlackSettings() {
           {actionSuccess}
         </div>
       )}
+
+      <section className="rounded-xl border border-border bg-card p-5">
+        <button
+          type="button"
+          className="flex w-full items-center gap-2 text-sm font-semibold text-left"
+          onClick={() => setGuideOpen(!guideOpen)}
+        >
+          {guideOpen ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+          {t("settings.slackSetupGuide")}
+        </button>
+        {guideOpen && (
+          <div className="mt-4 space-y-4 text-sm text-muted-foreground">
+            <ol className="list-decimal list-inside space-y-3">
+              <li>
+                <strong>{t("settings.slackGuideStep1Title")}</strong>
+                <p className="ml-5 mt-1">{t("settings.slackGuideStep1Desc")}</p>
+              </li>
+              <li>
+                <strong>{t("settings.slackGuideStep2Title")}</strong>
+                <p className="ml-5 mt-1">{t("settings.slackGuideStep2Desc")}</p>
+              </li>
+              <li>
+                <strong>{t("settings.slackGuideStep3Title")}</strong>
+                <p className="ml-5 mt-1">{t("settings.slackGuideStep3Desc")}</p>
+              </li>
+              <li>
+                <strong>{t("settings.slackGuideStep4Title")}</strong>
+                <p className="ml-5 mt-1">{t("settings.slackGuideStep4Desc")}</p>
+              </li>
+              <li>
+                <strong>{t("settings.slackGuideStep5Title")}</strong>
+                <p className="ml-5 mt-1">{t("settings.slackGuideStep5Desc")}</p>
+              </li>
+              <li>
+                <strong>{t("settings.slackGuideStep6Title")}</strong>
+                <p className="ml-5 mt-1">{t("settings.slackGuideStep6Desc")}</p>
+              </li>
+            </ol>
+            <p className="text-xs">
+              {t("settings.slackGuideFullDocs")}{" "}
+              <a
+                href="https://github.com/LifeMap/clippaper/blob/master/docs/guides/slack-setup.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline underline-offset-2"
+              >
+                docs/guides/slack-setup.md
+              </a>
+            </p>
+          </div>
+        )}
+      </section>
 
       <section className="rounded-xl border border-border bg-card p-5 space-y-5">
         <div className="flex items-start justify-between gap-4">
