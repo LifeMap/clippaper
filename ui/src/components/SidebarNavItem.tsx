@@ -3,10 +3,12 @@ import { cn } from "../lib/utils";
 import { useSidebar } from "../context/SidebarContext";
 import type { LucideIcon } from "lucide-react";
 
+type IconComponent = LucideIcon | React.ComponentType<{ className?: string }>;
+
 interface SidebarNavItemProps {
   to: string;
   label: string;
-  icon: LucideIcon;
+  icon: IconComponent;
   end?: boolean;
   className?: string;
   badge?: number;

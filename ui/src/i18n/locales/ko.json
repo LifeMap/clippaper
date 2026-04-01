@@ -60,7 +60,21 @@
     "slackSaveError": "Slack 설정 저장에 실패했습니다.",
     "slackTokensRequired": "Slack을 활성화하려면 Bot Token, App Token, Channel ID가 모두 필요합니다.",
     "slackStatusConnected": "연결됨",
-    "slackStatusDisconnected": "연결 안 됨"
+    "slackStatusDisconnected": "연결 안 됨",
+    "slackSetupGuide": "설정 가이드",
+    "slackGuideStep1Title": "Slack App 생성",
+    "slackGuideStep1Desc": "api.slack.com/apps > Create New App > From scratch로 이동합니다. 앱 이름(예: ClippaperAI)을 입력하고 워크스페이스를 선택합니다.",
+    "slackGuideStep2Title": "Socket Mode 활성화 & App Token 발급",
+    "slackGuideStep2Desc": "Socket Mode > Enable 후 App-Level Token을 생성합니다 (scope: connections:write). xapp- 토큰을 복사합니다.",
+    "slackGuideStep3Title": "Bot Token Scope 추가 & 앱 설치",
+    "slackGuideStep3Desc": "OAuth & Permissions > Bot Token Scopes에 chat:write, commands, im:history, im:read, im:write, channels:history, reactions:write를 추가합니다. 앱을 설치하고 xoxb- 토큰을 복사합니다.",
+    "slackGuideStep4Title": "/clip 슬래시 커맨드 생성",
+    "slackGuideStep4Desc": "Slash Commands > Create New Command에서 /clip 커맨드를 등록합니다.",
+    "slackGuideStep5Title": "이벤트 구독 & App Home 설정",
+    "slackGuideStep5Desc": "Event Subscriptions > Enable Events 후 message.im, message.channels를 구독합니다. App Home에서 Messages Tab을 활성화합니다.",
+    "slackGuideStep6Title": "봇 초대 & 아래 설정 입력",
+    "slackGuideStep6Desc": "Slack 채널에서 /invite @ClippaperAI를 입력하여 봇을 초대합니다. 아래에 토큰과 채널 ID를 입력하고 저장합니다.",
+    "slackGuideFullDocs": "자세한 내용은 다음 문서를 참조하세요"
   },
   "common": {
     "loading": "불러오는 중...",

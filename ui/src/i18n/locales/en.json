@@ -60,7 +60,21 @@
     "slackSaveError": "Failed to save Slack settings.",
     "slackTokensRequired": "Bot Token, App Token, and Channel ID are all required to enable Slack.",
     "slackStatusConnected": "Connected",
-    "slackStatusDisconnected": "Disconnected"
+    "slackStatusDisconnected": "Disconnected",
+    "slackSetupGuide": "Setup Guide",
+    "slackGuideStep1Title": "Create a Slack App",
+    "slackGuideStep1Desc": "Go to api.slack.com/apps > Create New App > From scratch. Name it (e.g., ClippaperAI) and select your workspace.",
+    "slackGuideStep2Title": "Enable Socket Mode & get App Token",
+    "slackGuideStep2Desc": "Go to Socket Mode > Enable. Create an App-Level Token with connections:write scope. Copy the xapp- token.",
+    "slackGuideStep3Title": "Add Bot Token Scopes & install",
+    "slackGuideStep3Desc": "Go to OAuth & Permissions > Bot Token Scopes. Add: chat:write, commands, im:history, im:read, im:write, channels:history, reactions:write. Then install the app and copy the xoxb- token.",
+    "slackGuideStep4Title": "Create /clip slash command",
+    "slackGuideStep4Desc": "Go to Slash Commands > Create New Command. Set command to /clip.",
+    "slackGuideStep5Title": "Enable Events & App Home",
+    "slackGuideStep5Desc": "Go to Event Subscriptions > Enable Events > Subscribe to: message.im, message.channels. Then go to App Home > Enable Messages Tab.",
+    "slackGuideStep6Title": "Invite bot & configure below",
+    "slackGuideStep6Desc": "In Slack, type /invite @ClippaperAI in your channel. Then fill in the tokens and Channel ID below and save.",
+    "slackGuideFullDocs": "For detailed instructions, see"
   },
   "common": {
     "loading": "Loading...",

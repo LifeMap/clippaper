@@ -51,5 +51,5 @@ tests/release-smoke/playwright-report/
 .superset/
 .claude/worktrees/
 
-# Clippaper custom docs
-docs/
+# Internal working docs (not for public)
+.docs-internal/
