@@ -111,6 +111,13 @@
     "agent": "Agent",
     "welcomeMessage": "ClippaperAI is now connected to this channel!",
     "welcomeConnected": "is now connected to this channel!",
-    "welcomeHelp": "Use `/clip agents` to list agents or `/clip ask` to send a message to an agent."
+    "welcomeHelp": "Use `/clip agents` to list agents or `/clip ask` to send a message to an agent.",
+    "issueCompleted": "Issue Completed",
+    "issueCancelled": "Issue Cancelled",
+    "issueStatusChanged": "Issue Status Changed",
+    "issueResult": "Result",
+    "reopenIssue": "Reopen",
+    "issueReopened": "Issue reopened",
+    "commentAdded": "Comment added"
   }
 }

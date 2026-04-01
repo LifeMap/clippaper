@@ -34,7 +34,7 @@ export async function startSlackBot(db: Db, opts: SlackBotOptions) {
   if (!defaultCompanyId) {
     console.warn("[slack-bot] No companies found, skipping command registration");
   } else {
-    registerCommands(boltApp, db, defaultCompanyId);
+    registerCommands(boltApp, db, defaultCompanyId, opts.channelId);
   }
 
   await startListeners(boltApp, db, opts.channelId, companyIds);

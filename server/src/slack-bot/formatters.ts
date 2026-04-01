@@ -122,6 +122,47 @@ export function formatFailedRun(run: FailedRunData, lang: string) {
   };
 }
 
+export function formatIssueStatusChanged(
+  issue: { id: string; identifier: string | null; title: string; status: string; assigneeAgentName: string | null; latestComment: string | null },
+  lang: string,
+) {
+  const label = issue.identifier ?? "";
+  const emoji = issue.status === "done" ? "✅" : issue.status === "cancelled" ? "🚫" : "🔄";
+  const headerKey =
+    issue.status === "done"
+      ? "slack.issueCompleted"
+      : issue.status === "cancelled"
+        ? "slack.issueCancelled"
+        : "slack.issueStatusChanged";
+  const blocks: Array<Record<string, unknown>> = [
+    {
+      type: "header",
+      text: { type: "plain_text", text: `${emoji} ${t(headerKey, lang)}` },
+    },
+    {
+      type: "section",
+      fields: [
+        { type: "mrkdwn", text: `*${t("slack.issueTitle", lang)}:*\n${label}: ${issue.title}` },
+        { type: "mrkdwn", text: `*${t("slack.issueStatus", lang)}:*\n${issue.status}` },
+        { type: "mrkdwn", text: `*${t("slack.issueAssignee", lang)}:*\n${issue.assigneeAgentName ?? t("slack.unassigned", lang)}` },
+      ],
+    },
+  ];
+  if (issue.latestComment) {
+    const truncated = issue.latestComment.length > 2000
+      ? issue.latestComment.slice(0, 2000) + "..."
+      : issue.latestComment;
+    blocks.push({
+      type: "section",
+      text: { type: "mrkdwn", text: `*${t("slack.issueResult", lang)}:*\n${truncated}` },
+    });
+  }
+  return {
+    text: `${t(headerKey, lang)}: ${label} ${issue.title}`,
+    blocks,
+  };
+}
+
 export function formatJoinRequest(req: JoinRequestData, lang: string) {
   const typeLabel = req.requestType === "human" ? t("slack.human", lang) : t("slack.agent", lang);
   const identity = req.requestType === "human"
