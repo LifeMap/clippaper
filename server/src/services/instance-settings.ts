@@ -19,11 +19,19 @@ function normalizeGeneralSettings(raw: unknown): InstanceGeneralSettings {
     return {
       censorUsernameInLogs: parsed.data.censorUsernameInLogs ?? false,
       defaultLanguage: parsed.data.defaultLanguage ?? "en",
+      slackEnabled: parsed.data.slackEnabled ?? false,
+      slackBotToken: parsed.data.slackBotToken ?? "",
+      slackAppToken: parsed.data.slackAppToken ?? "",
+      slackChannelId: parsed.data.slackChannelId ?? "",
     };
   }
   return {
     censorUsernameInLogs: false,
     defaultLanguage: "en",
+    slackEnabled: false,
+    slackBotToken: "",
+    slackAppToken: "",
+    slackChannelId: "",
   };
 }
 

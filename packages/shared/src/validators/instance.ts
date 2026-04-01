@@ -6,6 +6,10 @@ export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 export const instanceGeneralSettingsSchema = z.object({
   censorUsernameInLogs: z.boolean().default(false),
   defaultLanguage: z.enum(SUPPORTED_LANGUAGES).default("en"),
+  slackEnabled: z.boolean().default(false),
+  slackBotToken: z.string().default(""),
+  slackAppToken: z.string().default(""),
+  slackChannelId: z.string().default(""),
 }).strict();
 
 export const patchInstanceGeneralSettingsSchema = instanceGeneralSettingsSchema.partial();

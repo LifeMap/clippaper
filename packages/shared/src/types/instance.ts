@@ -1,6 +1,10 @@
 export interface InstanceGeneralSettings {
   censorUsernameInLogs: boolean;
   defaultLanguage: "en" | "ko";
+  slackEnabled: boolean;
+  slackBotToken: string;
+  slackAppToken: string;
+  slackChannelId: string;
 }
 
 export interface InstanceExperimentalSettings {

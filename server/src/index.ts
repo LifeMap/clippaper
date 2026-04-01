@@ -28,6 +28,7 @@ import { createApp } from "./app.js";
 import { loadConfig } from "./config.js";
 import { logger } from "./middleware/logger.js";
 import { setupLiveEventsWebSocketServer } from "./realtime/live-events-ws.js";
+import { startSlackBot } from "./slack-bot/index.js";
 import { heartbeatService, reconcilePersistedRuntimeServicesOnStartup, routineService } from "./services/index.js";
 import { createStorageServiceFromConfig } from "./storage/index.js";
 import { printStartupBanner } from "./startup-banner.js";
@@ -656,6 +657,21 @@ export async function startServer(): Promise<StartedServer> {
     }, backupIntervalMs);
   }
   
+  // Start Slack bot from DB settings
+  {
+    const { instanceSettingsService } = await import("./services/instance-settings.js");
+    const general = await instanceSettingsService(db as any).getGeneral();
+    if (general.slackEnabled && general.slackBotToken && general.slackAppToken && general.slackChannelId) {
+      startSlackBot(db as any, {
+        botToken: general.slackBotToken,
+        appToken: general.slackAppToken,
+        channelId: general.slackChannelId,
+      }).catch((err) => {
+        logger.error({ err }, "Failed to start Slack bot");
+      });
+    }
+  }
+
   await new Promise<void>((resolveListen, rejectListen) => {
     const onError = (err: Error) => {
       server.off("error", onError);
