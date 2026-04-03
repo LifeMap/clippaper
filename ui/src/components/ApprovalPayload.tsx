@@ -7,6 +7,9 @@ export const typeLabel: Record<string, string> = {
   budget_override_required: "Budget Override",
 };
 
+// NOTE: typeLabel values above are used as fallback labels. The actual
+// display should use t() in components that render them.
+
 /** Build a contextual label for an approval, e.g. "Hire Agent: Designer" */
 export function approvalLabel(type: string, payload?: Record<string, unknown> | null): string {
   const base = typeLabel[type] ?? type;

@@ -28,10 +28,10 @@ export function NotFoundPage({ scope = "global", requestedPrefix }: NotFoundPage
   const currentPath = `${location.pathname}${location.search}${location.hash}`;
   const normalizedPrefix = requestedPrefix?.toUpperCase();
 
-  const title = scope === "invalid_company_prefix" ? "Company not found" : t("notFound.title");
+  const title = scope === "invalid_company_prefix" ? t("notFound.companyNotFound") : t("notFound.title");
   const description =
     scope === "invalid_company_prefix"
-      ? `No company matches prefix "${normalizedPrefix ?? "unknown"}".`
+      ? t("notFound.noCompanyPrefix", { prefix: normalizedPrefix ?? "unknown" })
       : t("notFound.description");
 
   return (
@@ -48,7 +48,7 @@ export function NotFoundPage({ scope = "global", requestedPrefix }: NotFoundPage
         </div>
 
         <div className="mt-4 rounded-md border border-border bg-muted/20 px-3 py-2 text-xs text-muted-foreground">
-          Requested path: <code className="font-mono">{currentPath}</code>
+          {t("notFound.requestedPath")}: <code className="font-mono">{currentPath}</code>
         </div>
 
         <div className="mt-5 flex flex-wrap gap-2">

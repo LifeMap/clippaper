@@ -55,7 +55,7 @@ export function MobileBottomNav({ visible }: MobileBottomNavProps) {
         badge: inboxBadge.inbox,
       },
     ],
-    [openNewIssue, inboxBadge.inbox, t],
+    [openNewIssue, inboxBadge.inbox],
   );
 
   return (
